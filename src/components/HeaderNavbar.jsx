@@ -1,228 +1,254 @@
 import React, { useState, useEffect } from "react";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logonew.svg";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-// ✅ FIX: Use public folder for logo to avoid path errors
-// Place logo inside: public/logo.jpg
-// Then use: src="/logo.jpg"
+import { Link, useNavigate } from "react-router-dom";
 
 export default function HeaderNavbar() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Rides", path: "/rides" },
-  { name: "Booking", path: "/booking" },
-  { name: "Offers", path: "/offers" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Blog", path: "/blog" },
-  { name: "Contact", path: "/contact" }
-];
 
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Rides", path: "/rides" },
+    { name: "Booking", path: "/booking" },
+    { name: "Offers", path: "/offers" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" }
+  ];
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 992);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) setMenuOpen(false);
+    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const TOP_BLUE = "#2f4ea1";
-  const NAV_DARK = "#4f5b6b";
-  const NAV_HOVER = "rgba(255,255,255,0.14)";
+  const NAV_DARK = "rgba(30, 41, 59, 0.95)";
   const ORANGE = "#ff6a00";
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-        body { margin:0; font-family:'Poppins', sans-serif; }
-        a { text-decoration:none; }
+        
+        .navbar-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 9999;
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          background: rgba(30, 41, 59, 0.75);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
 
         .navbar-wrapper {
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
+          max-width: 1400px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 24px;
+        }
+
+        @media (min-width: 1024px) {
+          .navbar-wrapper {
+            padding: 16px 40px;
+          }
         }
 
         .nav-center {
-          position:absolute;
-          left:50%;
-          transform:translateX(-50%);
-          display:flex;
-          align-items:center;
-          gap:6px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
         }
 
         .nav-link {
-          font-size:15px;
-          font-weight:500;
-          color:#ffffff;
-          padding:6px 18px;
-          border-radius:999px;
-          transition: background 0.25s ease;
+          font-family: 'Poppins', sans-serif;
+          font-size: 15px;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.85);
+          padding: 8px 16px;
+          border-radius: 20px;
+          transition: all 0.25s ease;
+          text-decoration: none;
+          white-space: nowrap;
         }
 
         .nav-link:hover {
-          background:${NAV_HOVER};
+          color: #fff;
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .book-btn {
-          background: linear-gradient(135deg, #ff7a00, #ff5e00);
-          color:#ffffff;
-          padding:8px 24px;
-          border-radius:999px;
-          border:none;
-          font-weight:600;
-          font-size:14px;
-          cursor:pointer;
-          box-shadow:0 6px 18px rgba(255,106,0,0.45);
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #ff8a00, #ff5d00);
+          color: white;
+          border: none;
+          padding: 10px 24px;
+          font-size: 15px;
+          font-weight: 600;
+          border-radius: 50px;
+          box-shadow: 0 6px 20px rgba(255, 106, 0, 0.3);
+          cursor: pointer;
           transition: all 0.3s ease;
+          white-space: nowrap;
         }
 
         .book-btn:hover {
           transform: translateY(-2px);
-          box-shadow:0 10px 24px rgba(255,106,0,0.6);
+          box-sizing: border-box;
+          box-shadow: 0 8px 25px rgba(255, 106, 0, 0.45);
         }
 
-        @media(max-width:992px){
-          .nav-center { display:none; }
+        /* Mobile Dropdown Styling */
+        .mobile-menu {
+          background: ${NAV_DARK};
+          box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding: 20px;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 999;
+          animation: slideDown 0.3s ease-out forwards;
+        }
+
+        .mobile-menu .nav-link {
+          padding: 12px 20px;
+          border-radius: 8px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .mobile-menu .book-btn {
+          margin-top: 10px;
+          text-align: center;
+          width: 100%;
+        }
+
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
-      <header style={{ width: "100%" }}>
-
-        {/* 🔵 TOP BAR (HIDDEN ON MOBILE) */}
-        {!isMobile && (
-          <div
-            style={{
-              backgroundColor: TOP_BLUE,
-              color: "#ffffff",
-              fontSize: "13px",
-              padding: "8px 60px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-            <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <FaPhoneAlt size={12} />
-                <span>93612 50941</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <FaEnvelope size={12} />
-                <span>pondymarinabienvenueboating@gmail.com</span>
-              </div>
+      <header className="navbar-container">
+        <div className="navbar-wrapper">
+          
+          {/* LEFT: LOGO + COMPANY TEXT */}
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <div
+              style={{
+                background: "#fff",
+                padding: "6px",
+                borderRadius: "12px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <img
+                src={logo}
+                alt="logo"
+                style={{
+                  height: isMobile ? 36 : 42,
+                  width: isMobile ? 36 : 42,
+                  objectFit: "contain"
+                }}
+              />
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <FaMapMarkerAlt size={12} />
-              <span>Pondicherry, India</span>
+            <div>
+              <h1
+                style={{
+                  fontSize: isMobile ? 20 : 24,
+                  fontWeight: 700,
+                  margin: 0,
+                  color: "#fff",
+                  lineHeight: 1.1
+                }}
+              >
+                RS
+              </h1>
+              <div
+                style={{
+                  fontSize: isMobile ? 9 : 10,
+                  letterSpacing: "2.5px",
+                  marginTop: 3,
+                  fontWeight: 600,
+                  color: ORANGE
+                }}
+              >
+                BOATING ADVENTURE
+              </div>
             </div>
           </div>
-        )}
 
-        {/* 🟢 MAIN NAVBAR */}
-        <div
-          style={{
-            backgroundColor: NAV_DARK,
-            padding: isMobile ? "10px 20px" : "10px 60px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.18)"
-          }}
-        >
-          <div className="navbar-wrapper">
+          {/* CENTER LINKS (DESKTOP ONLY) */}
+          {!isMobile && (
+            <nav className="nav-center">
+              {navLinks.map((item) => (
+                <Link key={item.name} to={item.path} className="nav-link">
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          )}
 
-            {/* LEFT: LOGO + COMPANY TEXT (VISIBLE ON MOBILE ALSO) */}
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div style={{ backgroundColor: "#ffffff", padding: "5px", borderRadius: "6px" }}>
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ height: isMobile ? "34px" : "40px", width: isMobile ? "34px" : "40px" }}
-                />
-              </div>
-              <div>
-                <h1 style={{ fontSize: isMobile ? "18px" : "22px", fontWeight: 700, margin: 0, color: "#ffffff" }}>
-                  Bienvenue
-                </h1>
-                <div
-                  style={{
-                    fontSize: isMobile ? "10px" : "12px",
-                    letterSpacing: "2px",
-                    color: ORANGE,
-                    marginTop: "3px",
-                    fontWeight: 500
-                  }}
-                >
-                  BOATING ADVENTURE
-                </div>
-              </div>
+          {/* RIGHT SIDE */}
+          {!isMobile ? (
+            <button className="book-btn" onClick={() => navigate("/booking")}>
+              Book Now
+            </button>
+          ) : (
+            <div 
+              onClick={() => setMenuOpen(!menuOpen)} 
+              style={{ cursor: "pointer", display: "flex", alignItems: "center", padding: "4px" }}
+            >
+              {menuOpen ? <FaTimes size={22} color="#ffffff" /> : <FaBars size={22} color="#ffffff" />}
             </div>
-
-            {/* CENTER LINKS (DESKTOP ONLY) */}
-            {!isMobile && (
-              <div className="nav-center">
-                {navLinks.map((item) => (
-  <Link key={item.name} to={item.path} className="nav-link">
-    {item.name}
-  </Link>
-))}
-
-              </div>
-            )}
-
-            {/* RIGHT SIDE */}
-            {!isMobile ? (
-              <button 
-  className="book-btn"
-  onClick={() => navigate("/booking")}
->
-  Book Now
-</button>
-
-            ) : (
-              <div onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: "pointer" }}>
-                {menuOpen ? <FaTimes size={24} color="#ffffff" /> : <FaBars size={24} color="#ffffff" />}
-              </div>
-            )}
-          </div>
+          )}
         </div>
 
-        {/* 📱 MOBILE DROPDOWN */}
+        {/* MOBILE DROPDOWN */}
         {isMobile && menuOpen && (
-          <div
-            style={{
-              backgroundColor: NAV_DARK,
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px"
-            }}
-          >
+          <nav className="mobile-menu">
             {navLinks.map((item) => (
-  <Link
-    key={item.name}
-    to={item.path}
-    className="nav-link"
-    onClick={() => setMenuOpen(false)}
-  >
-    {item.name}
-  </Link>
-))}
-
+              <Link
+                key={item.name}
+                to={item.path}
+                className="nav-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
             <button 
-  className="book-btn"
-  onClick={() => navigate("/booking")}
->
-  Book Now
-</button>
-
-          </div>
+              className="book-btn" 
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/booking");
+              }}
+            >
+              Book Now
+            </button>
+          </nav>
         )}
       </header>
+      {/* Spacer item ensures page content doesn't tuck behind fixed header */}
+      <div style={{ height: isMobile ? "68px" : "78px" }} />
     </>
   );
 }
