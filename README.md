@@ -170,9 +170,6 @@ The application is optimized for
 GitHub:
 https://github.com/sudhar04
 
-LinkedIn:
-(Add your LinkedIn profile)
-
 ---
 
 ## 📄 License
