@@ -48,7 +48,7 @@ const getGridColumns = () => {
                 <Anchor size={22} color="#0f172a" />
               </div>
               <div>
-                <h3 style={styles.brandTitle}>Bienvenue</h3>
+                <h3 style={styles.brandTitle}>RS</h3>
                 <p style={styles.brandSub}>BOATING ADVENTURE</p>
               </div>
             </div>
@@ -184,8 +184,8 @@ const getGridColumns = () => {
   }}
 >
 
-          <p>© 2026 Bienvenue Boating Adventure. All rights reserved.</p>
-          <p>Design and Developed by Dementee Technologies</p>
+          <p>© 2026 RS Boating Adventure. All rights reserved.</p>
+          <p>Design and Developed by RS Teams</p>
         </div>
       </div>
     </footer>
