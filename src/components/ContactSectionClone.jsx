@@ -38,7 +38,7 @@ export default function ContactSectionClone() {
                 <Mail size={22} />
               </div>
               <h3>Email Us</h3>
-              <p>pondymarinabienvenueboating@gmail.com</p>
+              <p>rsboating@gmail.com</p>
               <a href="#" className="link">Get in touch →</a>
             </div>
 
