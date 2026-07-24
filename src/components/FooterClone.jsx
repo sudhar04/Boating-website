@@ -167,9 +167,9 @@ const getGridColumns = () => {
               <Phone size={16} /> Contact Us
             </h4>
 
-            <div style={styles.contactItem}><Phone size={15} /> 93613 50941</div>
-            <div style={styles.contactItem}><Phone size={15} /> 88722 14342</div>
-            <div style={styles.contactItem}><Phone size={15} /> 94831 83148</div>
+            <div style={styles.contactItem}><Phone size={15} /> 93612 50941</div>
+            <div style={styles.contactItem}><Phone size={15} /> 88721 14342</div>
+            <div style={styles.contactItem}><Phone size={15} /> 94830 83148</div>
             <div style={styles.contactItem}><Mail size={15} /> rsboating@gmail.com</div>
             <div style={styles.contactItem}><MapPin size={15} /> Expo Ground Upplam, Pondicherry - 605 001</div>
           </div>
