@@ -1,2 +1,51 @@
-@tailwind base;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+iframe {
+  max-width: 100%;
+}
+
+.app-layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  width: 100%;
+  flex: 1;
+  padding-top: 72px;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding-top: 64px;
+  }
+}
 

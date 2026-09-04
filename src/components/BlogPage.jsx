@@ -1,106 +1,144 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { FaFacebook, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import React from "react";
 
 export default function Blog() {
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/blogs")
-      .then(res => setBlogs(res.data));
-  }, []);
-
   return (
     <section className="blog-section">
-        <style>{`
-             
-             .blog-section {
-  padding: 120px 6%;
-  background: #f8fafc;
-}
+      <style>{`
+        .blog-section {
+          width: 100%;
+          min-height: 55vh;
+          padding: 80px 20px;
+          background: #f8fafc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow-x: hidden;
+        }
 
-.blog-title {
-  text-align: center;
-  font-size: 42px;
-  font-weight: 800;
-  margin-bottom: 60px;
-  background: linear-gradient(90deg,#ff7a00,#6a5cff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .blog-container {
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          text-align: center;
+        }
 
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-  gap: 40px;
-}
+        .blog-badge {
+          display: inline-block;
+          margin-bottom: 22px;
+          padding: 9px 20px;
+          border-radius: 30px;
+          background: #fff1e8;
+          color: #f97316;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+        }
 
-.blog-card {
-  background: #fff;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  transition: 0.4s ease;
-}
+        .blog-title {
+          margin: 0 0 20px;
+          font-size: clamp(34px, 5vw, 58px);
+          line-height: 1.15;
+          font-weight: 800;
+          color: #0f172a;
+        }
 
-.blog-card:hover {
-  transform: translateY(-10px);
-}
+        .blog-title span {
+          background: linear-gradient(90deg, #f97316, #6a5cff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
 
-.blog-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
+        .blog-description {
+          max-width: 700px;
+          margin: 0 auto 35px;
+          color: #64748b;
+          font-size: 18px;
+          line-height: 1.7;
+        }
 
-.blog-content {
-  padding: 25px;
-}
+        .blog-message {
+          width: 100%;
+          max-width: 650px;
+          margin: 0 auto;
+          padding: 30px 24px;
+          border: 1px solid #e2e8f0;
+          border-radius: 20px;
+          background: #ffffff;
+          box-shadow: 0 15px 35px rgba(15, 23, 42, 0.06);
+        }
 
-.read-more {
-  display: inline-block;
-  margin-top: 15px;
-  font-weight: 600;
-  color: #ff7a00;
-}
+        .blog-message h3 {
+          margin: 0 0 12px;
+          color: #0f172a;
+          font-size: 24px;
+          line-height: 1.3;
+          font-weight: 700;
+        }
 
-.share-icons {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  font-size: 20px;
-}
+        .blog-message p {
+          margin: 0;
+          color: #64748b;
+          font-size: 16px;
+          line-height: 1.7;
+        }
 
-        `}</style>
-      <h2 className="blog-title">Our Latest Insights</h2>
+        @media (max-width: 768px) {
+          .blog-section {
+            min-height: 55vh;
+            padding: 65px 16px 75px;
+          }
 
-      <div className="blog-grid">
-        {blogs.map(blog => (
-          <div className="blog-card" key={blog._id}>
-            <img src={blog.image} alt={blog.title} />
-            <div className="blog-content">
-              <h3>{blog.title}</h3>
-              <p>{blog.content.slice(0,120)}...</p>
+          .blog-description {
+            font-size: 16px;
+          }
 
-              <Link to={`/blog/${blog._id}`} className="read-more">
-                Read More →
-              </Link>
+          .blog-message {
+            padding: 25px 18px;
+          }
 
-              <div className="share-icons">
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} target="_blank">
-                  <FaFacebook />
-                </a>
-                <a href={`https://twitter.com/intent/tweet?url=${window.location.href}`} target="_blank">
-                  <FaTwitter />
-                </a>
-                <a href={`https://wa.me/?text=${window.location.href}`} target="_blank">
-                  <FaWhatsapp />
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+          .blog-message h3 {
+            font-size: 21px;
+          }
+
+          .blog-message p {
+            font-size: 15px;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .blog-section {
+            padding-left: 14px;
+            padding-right: 14px;
+          }
+
+          .blog-title {
+            font-size: 34px;
+          }
+        }
+      `}</style>
+
+      <div className="blog-container">
+        <div className="blog-badge">Our Blog</div>
+
+        <h1 className="blog-title">
+          Our Latest <span>Insights</span>
+        </h1>
+
+        <p className="blog-description">
+          Explore travel tips, boating guides, destination ideas, and
+          unforgettable experiences from Bienvenue Boating.
+        </p>
+
+        <div className="blog-message">
+          <h3>Our blog is coming soon</h3>
+
+          <p>
+            We are preparing helpful travel tips, boating updates, destination
+            guides, and exciting stories. Stay tuned for our upcoming blog
+            posts.
+          </p>
+        </div>
       </div>
     </section>
   );

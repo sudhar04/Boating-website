@@ -41,35 +41,39 @@ export default App */
 
 
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Gallery from "./pages/Gallery";
+
 import HeaderNavbar from "./components/HeaderNavbar";
 import FooterClone from "./components/FooterClone";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
 import Rides from "./pages/Rides";
 import Booking from "./pages/Booking";
 import Offers from "./pages/Offers";
+import Gallery from "./pages/Gallery";
 import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <>
+    <div className="app-layout">
       <HeaderNavbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/rides" element={<Rides />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/offers" element={<Offers />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/rides" element={<Rides />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/offers" element={<Offers />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
 
       <FooterClone />
-    </>
+    </div>
   );
 }
 

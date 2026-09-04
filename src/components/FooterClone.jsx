@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Anchor,
@@ -8,45 +8,66 @@ import {
   Instagram,
   Facebook,
   Twitter,
-  Youtube
+  Youtube,
 } from "lucide-react";
+
+const quickLinks = [
+  { name: "Home", path: "/" },
+  { name: "About Us", path: "/about" },
+  { name: "Rides", path: "/rides" },
+  { name: "Book Now", path: "/booking" },
+  { name: "Gallery", path: "/gallery" },
+  { name: "Contact", path: "/contact" },
+];
+
+const destinations = [
+  "Fishing Harbour",
+  "Mangrove Forest",
+  "Arikamedu",
+  "Ocean Mouth",
+  "Sunset Ride",
+];
+
+const socialLinks = [
+  {
+    name: "Instagram",
+    Icon: Instagram,
+    url: "https://www.instagram.com/",
+  },
+  {
+    name: "Facebook",
+    Icon: Facebook,
+    url: "https://www.facebook.com/",
+  },
+  {
+    name: "Twitter",
+    Icon: Twitter,
+    url: "https://twitter.com/",
+  },
+  {
+    name: "YouTube",
+    Icon: Youtube,
+    url: "https://www.youtube.com/",
+  },
+];
 
 export default function FooterClone() {
   const [hoveredLink, setHoveredLink] = useState(null);
   const [hoveredSocial, setHoveredSocial] = useState(null);
-const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-useEffect(() => {
-  const handleResize = () => setScreenWidth(window.innerWidth);
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
-const getGridColumns = () => {
-  if (screenWidth < 768) return "1fr";        // Mobile
-  if (screenWidth < 1024) return "1fr 1fr";  // Tablet
-  return "1.3fr 1fr 1fr 1.3fr";               // Desktop
-};
-
 
   return (
     <footer style={styles.footer}>
       <div style={styles.topBorder} />
 
       <div style={styles.container}>
-        <div
-  style={{
-    ...styles.grid,
-    gridTemplateColumns: getGridColumns()
-  }}
->
-
+        <div style={styles.grid}>
           {/* Brand Column */}
           <div style={styles.brandCol}>
             <div style={styles.brandHeader}>
               <div style={styles.logoBox}>
                 <Anchor size={22} color="#0f172a" />
               </div>
+
               <div>
                 <h3 style={styles.brandTitle}>RS</h3>
                 <p style={styles.brandSub}>BOATING ADVENTURE</p>
@@ -54,105 +75,103 @@ const getGridColumns = () => {
             </div>
 
             <p style={styles.brandText}>
-              Experience the best boat rides in Pondicherry. Safe,
-              enjoyable, and memorable adventures await you.
+              Experience the best boat rides in Pondicherry. Safe, enjoyable,
+              and memorable adventures await you.
             </p>
 
             <div style={styles.socialRow}>
-              {[Instagram, Facebook, Twitter, Youtube].map((Icon, i) => (
-                <div
-                  key={i}
-                  onMouseEnter={() => setHoveredSocial(i)}
+              {socialLinks.map(({ name, Icon, url }, index) => (
+                <a
+                  key={name}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={name}
+                  onMouseEnter={() => setHoveredSocial(index)}
                   onMouseLeave={() => setHoveredSocial(null)}
                   style={{
                     ...styles.socialIcon,
                     background:
-                      hoveredSocial === i ? "#f97316" : "#1e293b",
+                      hoveredSocial === index ? "#f97316" : "#1e293b",
                     transform:
-                      hoveredSocial === i ? "translateY(-6px)" : "none",
+                      hoveredSocial === index
+                        ? "translateY(-5px)"
+                        : "translateY(0)",
                     boxShadow:
-                      hoveredSocial === i
-                        ? "0 12px 25px rgba(249,115,22,.4)"
-                        : "none"
+                      hoveredSocial === index
+                        ? "0 12px 25px rgba(249,115,22,.35)"
+                        : "none",
                   }}
                 >
                   <Icon
                     size={18}
-                    color={hoveredSocial === i ? "#ffffff" : "#cbd5e1"}
+                    color={
+                      hoveredSocial === index ? "#ffffff" : "#cbd5e1"
+                    }
                   />
-                </div>
+                </a>
               ))}
             </div>
           </div>
-{/* Quick Links */}
-<div style={styles.linkCol}>
-  <h4 style={styles.colTitle}>
-    <Anchor size={16} /> Quick Links
-  </h4>
 
-  <ul style={styles.linkList}>
-    {[
-      { name: "Home", path: "/" },
-      { name: "About Us", path: "/about" },
-      { name: "Rides", path: "/rides" },
-      { name: "Book Now", path: "/booking" },
-      { name: "Gallery", path: "/gallery" },
-      { name: "Contact", path: "/contact" }
-    ].map((item, i) => (
-      <li key={i}>
-        <Link
-          to={item.path}
-          onMouseEnter={() => setHoveredLink(`quick-${i}`)}
-          onMouseLeave={() => setHoveredLink(null)}
-          style={{
-            ...styles.linkItem,
-            color:
-              hoveredLink === `quick-${i}`
-                ? "#f97316"
-                : "#cbd5e1",
-            transform:
-              hoveredLink === `quick-${i}`
-                ? "translateX(8px)"
-                : "none",
-            textDecoration: "none",
-            display: "inline-block"
-          }}
-        >
-          {item.name}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</div>
+          {/* Quick Links */}
+          <div style={styles.linkCol}>
+            <h4 style={styles.colTitle}>
+              <Anchor size={16} />
+              Quick Links
+            </h4>
 
+            <ul style={styles.linkList}>
+              {quickLinks.map((item, index) => (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    onMouseEnter={() =>
+                      setHoveredLink(`quick-${index}`)
+                    }
+                    onMouseLeave={() => setHoveredLink(null)}
+                    style={{
+                      ...styles.linkItem,
+                      color:
+                        hoveredLink === `quick-${index}`
+                          ? "#f97316"
+                          : "#cbd5e1",
+                      transform:
+                        hoveredLink === `quick-${index}`
+                          ? "translateX(6px)"
+                          : "translateX(0)",
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Destinations */}
           <div style={styles.linkCol}>
             <h4 style={styles.colTitle}>
-              <MapPin size={16} /> Destinations
+              <MapPin size={16} />
+              Destinations
             </h4>
+
             <ul style={styles.linkList}>
-              {[
-                "Fishing Harbour",
-                "Mangrove Forest",
-                "Arikamedu",
-                "Ocean Mouth",
-                "Sunset Ride"
-              ].map((item, i) => (
+              {destinations.map((item, index) => (
                 <li
-                  key={i}
-                  onMouseEnter={() => setHoveredLink(`dest-${i}`)}
+                  key={item}
+                  onMouseEnter={() => setHoveredLink(`destination-${index}`)}
                   onMouseLeave={() => setHoveredLink(null)}
                   style={{
                     ...styles.linkItem,
                     color:
-                      hoveredLink === `dest-${i}`
+                      hoveredLink === `destination-${index}`
                         ? "#f97316"
                         : "#cbd5e1",
                     transform:
-                      hoveredLink === `dest-${i}`
-                        ? "translateX(8px)"
-                        : "none"
+                      hoveredLink === `destination-${index}`
+                        ? "translateX(6px)"
+                        : "translateX(0)",
                   }}
                 >
                   {item}
@@ -164,28 +183,57 @@ const getGridColumns = () => {
           {/* Contact */}
           <div style={styles.contactCol}>
             <h4 style={styles.colTitle}>
-              <Phone size={16} /> Contact Us
+              <Phone size={16} />
+              Contact Us
             </h4>
 
+<<<<<<< HEAD
             <div style={styles.contactItem}><Phone size={15} /> 93612 50941</div>
             <div style={styles.contactItem}><Phone size={15} /> 88721 14342</div>
             <div style={styles.contactItem}><Phone size={15} /> 94830 83148</div>
             <div style={styles.contactItem}><Mail size={15} /> rsboating@gmail.com</div>
             <div style={styles.contactItem}><MapPin size={15} /> Expo Ground Upplam, Pondicherry - 605 001</div>
+=======
+            <a href="tel:9361250941" style={styles.contactItem}>
+              <Phone size={15} />
+              <span>93612 50941</span>
+            </a>
+
+            <a href="tel:8870214342" style={styles.contactItem}>
+              <Phone size={15} />
+              <span>88702 14342</span>
+            </a>
+
+            <a href="tel:9486183148" style={styles.contactItem}>
+              <Phone size={15} />
+              <span>94861 83148</span>
+            </a>
+
+            <a
+              href="mailto:pondymarinabienvenueboating@gmail.com"
+              style={styles.contactItem}
+            >
+              <Mail size={15} />
+              <span>pondymarinabienvenueboating@gmail.com</span>
+            </a>
+
+            <div style={styles.contactItem}>
+              <MapPin size={15} />
+              <span>Expo Ground Upplam, Pondicherry - 605 001</span>
+            </div>
+>>>>>>> fff1751 (Update UI)
           </div>
         </div>
 
         {/* Bottom Row */}
-        <div
-  style={{
-    ...styles.bottomRow,
-    flexDirection: screenWidth < 768 ? "column" : "row",
-    textAlign: screenWidth < 768 ? "center" : "left"
-  }}
->
+        <div style={styles.bottomRow}>
+          <p style={styles.bottomText}>
+            © 2026 RS Boating Adventure. All rights reserved.
+          </p>
 
-          <p>© 2026 RS Boating Adventure. All rights reserved.</p>
-          <p>Design and Developed by RS Teams</p>
+          <p style={styles.bottomText}>
+            Designed and Developed by RS Teams
+          </p>
         </div>
       </div>
     </footer>
@@ -194,69 +242,90 @@ const getGridColumns = () => {
 
 const styles = {
   footer: {
-  background: "linear-gradient(90deg,#071229,#020617)",
-  color: "#e2e8f0",
-  position: "relative",
-  paddingTop: "0",
-  marginTop: "0"
-},
+    width: "100%",
+    background: "linear-gradient(90deg, #071229, #020617)",
+    color: "#e2e8f0",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    position: "relative",
+    margin: 0,
+    padding: 0,
+  },
 
   topBorder: {
+    width: "100%",
     height: "3px",
-    background: "linear-gradient(90deg,#f97316,#3b82f6)"
+    background: "linear-gradient(90deg, #f97316, #3b82f6)",
   },
+
   container: {
-  maxWidth: "1200px",
-  margin: "0 auto",
-  padding: "60px 20px 40px"
-},
+    width: "100%",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "60px 20px 40px",
+  },
 
   grid: {
+    width: "100%",
     display: "grid",
-   
-    gap: "50px"
+    gridTemplateColumns: "1.3fr 1fr 1fr 1.3fr",
+    gap: "50px",
   },
+
   brandCol: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    minWidth: 0,
   },
+
   brandHeader: {
     display: "flex",
     alignItems: "center",
     gap: "14px",
-    marginBottom: "18px"
+    marginBottom: "18px",
   },
+
   logoBox: {
     width: "45px",
     height: "45px",
+    flexShrink: 0,
     borderRadius: "10px",
     background: "#f1f5f9",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
+
   brandTitle: {
     margin: 0,
     fontSize: "20px",
+    lineHeight: 1.2,
     fontWeight: 700,
-    color: "white"
+    color: "#ffffff",
   },
+
   brandSub: {
-    margin: 0,
+    margin: "4px 0 0",
     fontSize: "12px",
+    lineHeight: 1.2,
     color: "#f97316",
-    fontWeight: 600
+    fontWeight: 700,
+    letterSpacing: "0.5px",
   },
+
   brandText: {
+    maxWidth: "280px",
+    margin: "0 0 20px",
     fontSize: "14px",
-    lineHeight: "1.6",
-    marginBottom: "20px",
-    maxWidth: "280px"
+    lineHeight: 1.7,
+    color: "#cbd5e1",
   },
+
   socialRow: {
     display: "flex",
-    gap: "14px"
+    flexWrap: "wrap",
+    gap: "14px",
   },
+
   socialIcon: {
     width: "40px",
     height: "40px",
@@ -265,54 +334,79 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer",
-    transition: "all .3s ease"
+    transition: "all 0.3s ease",
+    textDecoration: "none",
   },
+
   linkCol: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    minWidth: 0,
   },
+
   contactCol: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    minWidth: 0,
   },
+
   colTitle: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
+    margin: "0 0 18px",
     fontSize: "16px",
-    fontWeight: 600,
-    marginBottom: "18px",
-    color: "white"
+    lineHeight: 1.3,
+    fontWeight: 700,
+    color: "#ffffff",
   },
+
   linkList: {
     listStyle: "none",
     padding: 0,
     margin: 0,
     display: "flex",
     flexDirection: "column",
-    gap: "10px"
+    gap: "10px",
   },
+
   linkItem: {
+    display: "inline-block",
+    width: "fit-content",
     cursor: "pointer",
     fontSize: "14px",
-    transition: "all .3s ease"
+    lineHeight: 1.5,
+    transition: "all 0.3s ease",
+    textDecoration: "none",
   },
+
   contactItem: {
     display: "flex",
     alignItems: "flex-start",
     gap: "8px",
+    marginBottom: "12px",
+    color: "#cbd5e1",
     fontSize: "14px",
-    marginBottom: "10px"
+    lineHeight: 1.5,
+    textDecoration: "none",
+    overflowWrap: "anywhere",
   },
+
   bottomRow: {
     marginTop: "50px",
     paddingTop: "20px",
-    borderTop: "1px solid rgba(255,255,255,0.1)",
+    borderTop: "1px solid rgba(255, 255, 255, 0.1)",
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
     flexWrap: "wrap",
-    gap: "10px",
+    gap: "12px",
+  },
+
+  bottomText: {
+    margin: 0,
+    color: "#94a3b8",
     fontSize: "13px",
-    color: "#94a3b8"
-  }
+    lineHeight: 1.5,
+  },
 };

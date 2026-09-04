@@ -315,7 +315,7 @@ const styles = {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  zIndex: 1000
+  zIndex: 2000
 },
 
   close: {
