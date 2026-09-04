@@ -284,7 +284,7 @@ export default function HeroSection() {
       <div key={current} className="hero-content fade-up">
         <div className="hero-subtitle">
           <FaShip className="boat-icon" />
-          BIENVENUE BOATING ADVENTURE
+          RS BOATING ADVENTURE
         </div>
 
         <h1 className="hero-title">
