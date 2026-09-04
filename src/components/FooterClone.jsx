@@ -31,22 +31,22 @@ const destinations = [
 const socialLinks = [
   {
     name: "Instagram",
-    Icon: Instagram,
+    icon: Instagram,
     url: "https://www.instagram.com/",
   },
   {
     name: "Facebook",
-    Icon: Facebook,
+    icon: Facebook,
     url: "https://www.facebook.com/",
   },
   {
     name: "Twitter",
-    Icon: Twitter,
+    icon: Twitter,
     url: "https://twitter.com/",
   },
   {
     name: "YouTube",
-    Icon: Youtube,
+    icon: Youtube,
     url: "https://www.youtube.com/",
   },
 ];
@@ -60,7 +60,7 @@ export default function FooterClone() {
       <div style={styles.topBorder} />
 
       <div style={styles.container}>
-        <div style={styles.grid}>
+        <div className="footer-grid" style={styles.grid}>
           {/* Brand Column */}
           <div style={styles.brandCol}>
             <div style={styles.brandHeader}>
@@ -80,7 +80,7 @@ export default function FooterClone() {
             </p>
 
             <div style={styles.socialRow}>
-              {socialLinks.map(({ name, Icon, url }, index) => (
+              {socialLinks.map(({ name, icon: Icon, url }, index) => (
                 <a
                   key={name}
                   href={url}
@@ -99,7 +99,7 @@ export default function FooterClone() {
                         : "translateY(0)",
                     boxShadow:
                       hoveredSocial === index
-                        ? "0 12px 25px rgba(249,115,22,.35)"
+                        ? "0 12px 25px rgba(249, 115, 22, 0.35)"
                         : "none",
                   }}
                 >
@@ -126,9 +126,7 @@ export default function FooterClone() {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    onMouseEnter={() =>
-                      setHoveredLink(`quick-${index}`)
-                    }
+                    onMouseEnter={() => setHoveredLink(`quick-${index}`)}
                     onMouseLeave={() => setHoveredLink(null)}
                     style={{
                       ...styles.linkItem,
@@ -187,13 +185,6 @@ export default function FooterClone() {
               Contact Us
             </h4>
 
-<<<<<<< HEAD
-            <div style={styles.contactItem}><Phone size={15} /> 93612 50941</div>
-            <div style={styles.contactItem}><Phone size={15} /> 88721 14342</div>
-            <div style={styles.contactItem}><Phone size={15} /> 94830 83148</div>
-            <div style={styles.contactItem}><Mail size={15} /> rsboating@gmail.com</div>
-            <div style={styles.contactItem}><MapPin size={15} /> Expo Ground Upplam, Pondicherry - 605 001</div>
-=======
             <a href="tel:9361250941" style={styles.contactItem}>
               <Phone size={15} />
               <span>93612 50941</span>
@@ -221,12 +212,11 @@ export default function FooterClone() {
               <MapPin size={15} />
               <span>Expo Ground Upplam, Pondicherry - 605 001</span>
             </div>
->>>>>>> fff1751 (Update UI)
           </div>
         </div>
 
         {/* Bottom Row */}
-        <div style={styles.bottomRow}>
+        <div className="footer-bottom" style={styles.bottomRow}>
           <p style={styles.bottomText}>
             © 2026 RS Boating Adventure. All rights reserved.
           </p>
@@ -236,6 +226,39 @@ export default function FooterClone() {
           </p>
         </div>
       </div>
+
+      <style>
+        {`
+          .footer-grid {
+            grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
+          }
+
+          .footer-bottom {
+            flex-direction: row;
+            text-align: left;
+          }
+
+          @media (max-width: 1024px) {
+            .footer-grid {
+              grid-template-columns: 1fr 1fr;
+              gap: 40px;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .footer-grid {
+              grid-template-columns: 1fr;
+              gap: 35px;
+            }
+
+            .footer-bottom {
+              flex-direction: column;
+              text-align: center;
+              align-items: center;
+            }
+          }
+        `}
+      </style>
     </footer>
   );
 }
@@ -245,10 +268,8 @@ const styles = {
     width: "100%",
     background: "linear-gradient(90deg, #071229, #020617)",
     color: "#e2e8f0",
-    fontFamily: "Arial, Helvetica, sans-serif",
     position: "relative",
-    margin: 0,
-    padding: 0,
+    marginTop: 0,
   },
 
   topBorder: {
@@ -261,13 +282,11 @@ const styles = {
     width: "100%",
     maxWidth: "1200px",
     margin: "0 auto",
-    padding: "60px 20px 40px",
+    padding: "60px 20px 35px",
   },
 
   grid: {
-    width: "100%",
     display: "grid",
-    gridTemplateColumns: "1.3fr 1fr 1fr 1.3fr",
     gap: "50px",
   },
 
@@ -285,8 +304,8 @@ const styles = {
   },
 
   logoBox: {
-    width: "45px",
-    height: "45px",
+    width: "48px",
+    height: "48px",
     flexShrink: 0,
     borderRadius: "10px",
     background: "#f1f5f9",
@@ -297,24 +316,22 @@ const styles = {
 
   brandTitle: {
     margin: 0,
-    fontSize: "20px",
-    lineHeight: 1.2,
+    fontSize: "21px",
     fontWeight: 700,
     color: "#ffffff",
   },
 
   brandSub: {
-    margin: "4px 0 0",
-    fontSize: "12px",
-    lineHeight: 1.2,
+    margin: 0,
+    fontSize: "11px",
+    letterSpacing: "1px",
     color: "#f97316",
     fontWeight: 700,
-    letterSpacing: "0.5px",
   },
 
   brandText: {
-    maxWidth: "280px",
-    margin: "0 0 20px",
+    maxWidth: "290px",
+    margin: "0 0 22px",
     fontSize: "14px",
     lineHeight: 1.7,
     color: "#cbd5e1",
@@ -323,19 +340,18 @@ const styles = {
   socialRow: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "14px",
+    gap: "12px",
   },
 
   socialIcon: {
     width: "40px",
     height: "40px",
-    borderRadius: "8px",
+    borderRadius: "9px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
     textDecoration: "none",
+    transition: "all 0.3s ease",
   },
 
   linkCol: {
@@ -356,7 +372,6 @@ const styles = {
     gap: "8px",
     margin: "0 0 18px",
     fontSize: "16px",
-    lineHeight: 1.3,
     fontWeight: 700,
     color: "#ffffff",
   },
@@ -367,23 +382,23 @@ const styles = {
     margin: 0,
     display: "flex",
     flexDirection: "column",
-    gap: "10px",
+    gap: "11px",
   },
 
   linkItem: {
     display: "inline-block",
     width: "fit-content",
-    cursor: "pointer",
     fontSize: "14px",
     lineHeight: 1.5,
-    transition: "all 0.3s ease",
     textDecoration: "none",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
   },
 
   contactItem: {
     display: "flex",
     alignItems: "flex-start",
-    gap: "8px",
+    gap: "9px",
     marginBottom: "12px",
     color: "#cbd5e1",
     fontSize: "14px",
@@ -393,20 +408,20 @@ const styles = {
   },
 
   bottomRow: {
-    marginTop: "50px",
-    paddingTop: "20px",
-    borderTop: "1px solid rgba(255, 255, 255, 0.1)",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     flexWrap: "wrap",
     gap: "12px",
+    marginTop: "45px",
+    paddingTop: "20px",
+    borderTop: "1px solid rgba(255, 255, 255, 0.12)",
   },
 
   bottomText: {
     margin: 0,
-    color: "#94a3b8",
     fontSize: "13px",
-    lineHeight: 1.5,
+    color: "#94a3b8",
+    lineHeight: 1.6,
   },
 };
