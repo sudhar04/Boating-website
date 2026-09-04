@@ -187,17 +187,17 @@ export default function FooterClone() {
 
             <a href="tel:9361250941" style={styles.contactItem}>
               <Phone size={15} />
-              <span>93612 50941</span>
+              <span>95841 50167</span>
             </a>
 
             <a href="tel:8870214342" style={styles.contactItem}>
               <Phone size={15} />
-              <span>88702 14342</span>
+              <span>85964 14374</span>
             </a>
 
             <a href="tel:9486183148" style={styles.contactItem}>
               <Phone size={15} />
-              <span>94861 83148</span>
+              <span>94552 83734</span>
             </a>
 
             <a
@@ -205,7 +205,7 @@ export default function FooterClone() {
               style={styles.contactItem}
             >
               <Mail size={15} />
-              <span>pondymarinabienvenueboating@gmail.com</span>
+              <span>rsboating@gmail.com</span>
             </a>
 
             <div style={styles.contactItem}>
